@@ -39,11 +39,15 @@ export const Register: FC<Props> = (props) => {
 
     // (ชื่อตัวแปร) เช่น user คล้ายๆในการกำหนด catch  
     // ในวงเล็บ คือ ตัวแปรที่ส่งมาจาก input เช่น reg.firstName;
+    // Ip เก่า คือ http://52.221.215.212/register
+    // แบบ Local http://localhost:3000/register
+    // แบบ Azue https://1xwck89j-3000.asse.devtunnels.ms/register
     const whenValidatePass: SubmitHandler<RegisterModel> = async (reg) => {
        
         console.log(reg); 
         try {
-            const resp = await fetch("http://52.221.215.212/register", {
+            const resp = await fetch("https://1xwck89j-3000.asse.devtunnels.ms/register", 
+            {
                 method: 'POST', // GET, POST, DELETE, PUT
                 headers: {'Content-Type': 'application/json'}, // ถ้าไม่ระบุมันจะไม่ส่งเป็น JSON
                 body: JSON.stringify({

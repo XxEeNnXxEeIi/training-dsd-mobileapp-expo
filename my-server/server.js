@@ -15,6 +15,20 @@ app.post('/register', (req, res) => {
   res.json({ message: 'User registered successfully', userName, firstName, lastName });
 });
 
+// Login endpoint
+app.post('/login', (req, res) => {
+  const { userName, password } = req.body;
+  // Here you can implement your login logic, e.g., check credentials
+  const user = users.find(user => user.userName === userName && user.password === password);
+  if (user) {
+    // Authentication successful
+    res.json({ message: 'Login successful', userName });
+  } else {
+    // Authentication failed
+    res.status(401).json({ message: 'Invalid username or password' });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
 });

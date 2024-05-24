@@ -39,11 +39,13 @@ export const Login: FC<Props> = (props) => {
         resolver: zodResolver(LoginSchema)
     });
 
+    // Ip เก่า คือ http://52.221.215.212/login
     const whenValidatePass: SubmitHandler<LoginModel> = async (user) => {
         console.log(user);
         // Login ใช้ Post
         try {
-            const resp = await fetch("http://52.221.215.212/login", {
+            const resp = await fetch("https://1xwck89j-3000.asse.devtunnels.ms/login", 
+            {
                 method: 'POST', // GET, POST, DELETE, PUT
                 headers: {'Content-Type': 'application/json'}, // ถ้าไม่ระบุมันจะไม่ส่งเป็น JSON
                 body: JSON.stringify({
