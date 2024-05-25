@@ -1,34 +1,37 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const { PrismaClient } = require('@prisma/client');
 
 const app = express();
 const port = 3000;
+const prisma = new PrismaClient();
 
-// Middleware to parse JSON
 app.use(bodyParser.json());
-
-// Register endpoint
-app.post('/register', (req, res) => {
-  const { userName, firstName, lastName, password } = req.body;
-  // Here you can handle the registration logic, e.g., save to database
-  console.log(`Received registration data: ${JSON.stringify(req.body)}`);
-  res.json({ message: 'User registered successfully', userName, firstName, lastName });
-});
-
-// Login endpoint
-app.post('/login', (req, res) => {
-  const { userName, password } = req.body;
-  // Here you can implement your login logic, e.g., check credentials
-  const user = users.find(user => user.userName === userName && user.password === password);
-  if (user) {
-    // Authentication successful
-    res.json({ message: 'Login successful', userName });
-  } else {
-    // Authentication failed
-    res.status(401).json({ message: 'Invalid username or password' });
-  }
-});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
 });
+
+// Register endpoint
+app.post('/register', async (req, res) => {
+  const { userName, firstName, lastName, password, email } = req.body;
+  try {
+    // Create new registration
+    const newMember = await prisma.member.create({
+      data: {
+        userName,
+        firstName,
+        lastName,
+        password,
+        email,
+      },
+    });
+
+    res.status(201).json(newMember);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+module.exports = app;

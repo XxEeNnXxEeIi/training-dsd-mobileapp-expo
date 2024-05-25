@@ -54,7 +54,7 @@ export const Register: FC<Props> = (props) => {
                     userName: reg.userName,
                     firstName: reg.firstName,
                     lastName: reg.lastName,
-                    password: reg.password // w พิมพ์เล็ก
+                    password: reg.password,
                 })
             });
     

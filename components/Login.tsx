@@ -1,5 +1,5 @@
 import { FC } from 'react'; // FC คือ Function Components มี Class ด้วยนะ
-import {View, Text, Image, TextInput, Pressable, Alert} from 'react-native'; // เพิ่มประเภท Widget ในนี้
+import {View, Text, Image, TextInput, Pressable, Alert, ScrollView} from 'react-native'; // เพิ่มประเภท Widget ในนี้
 import {z} from 'zod'; 
 import { zodResolver} from '@hookform/resolvers/zod';
 import { useForm, Controller, SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
@@ -95,50 +95,43 @@ export const Login: FC<Props> = (props) => {
     }
 
     return <>
-    <View className='w-full h-full py-16 px-8 space-y-4 bg-orange-100'> 
+    <ScrollView className='bg-orange-100'>
+        <View className='w-full h-full py-16 px-8 space-y-4 '>
         
-        <View className='items-center'>
-            <Image source={require('./../assets/ill.png')}></Image>
-        </View>
-
-        <View>
-            <Text className='text-4xl text-center border-blackborder-2border-dashed'>Illuminados</Text>
-        </View>
+            <View className='items-center'>
+                <Image source={require('./../assets/ill.png')}></Image>
+            </View>
+            <View>
+                <Text className='text-4xl text-center border-blackborder-2border-dashed'>Illuminados</Text>
+            </View>
         
-        <View>
-            <Text className='text-3xl text-center text-gray-900 underline italic font-semibold tracking-widest leading-10 uppercase'>Login Form</Text>
+            <View>
+                <Text className='text-3xl text-center text-gray-900 underline italic font-semibold tracking-widest leading-10 uppercase'>Login Form</Text>
+            </View>
+            <View>
+                <MyInput name = 'userName' control = {control} label='ผู้ใช้งาน'/>
+            </View>
+            <View>
+                <MyInput name = 'password' control = {control} isSecure = {true} label='รหัสผ่าน'/>
+            </View>
+            <View className = 'flex-row'>
+            <View className = 'flex-[2] mr-4'>
+            <MyButton label = 'Submit'
+            whenPress={handleSubmit(whenValidatePass, whenValidateFail)}>
+            </MyButton>
+            </View>
+            <View className = 'flex-1'>
+            <MyButton label = 'Clear'
+            whenPress={whenResetPress}>
+            </MyButton>
+            </View>
+            </View>
+            <Pressable
+            onPress={WhenNavigate}>
+                <Text className ='underline'>Don't have account? Register here!</Text>
+            </Pressable>
         </View>
-
-        <View>
-            <MyInput name = 'userName' control = {control} label='ผู้ใช้งาน'/>
-        </View>
-
-        <View>
-            <MyInput name = 'password' control = {control} isSecure = {true} label='รหัสผ่าน'/>
-        </View>
-
-        <View className = 'flex-row'>
-
-        <View className = 'flex-[2] mr-4'>
-        <MyButton label = 'Submit' 
-        whenPress={handleSubmit(whenValidatePass, whenValidateFail)}>
-        </MyButton>
-        </View>
-
-        <View className = 'flex-1'>
-        <MyButton label = 'Clear' 
-        whenPress={whenResetPress}>
-        </MyButton>
-        </View>
-
-        </View>
-
-        <Pressable  
-        onPress={WhenNavigate}>
-            <Text className ='underline'>Don't have account? Register here!</Text>
-        </Pressable>
-
-    </View>
+    </ScrollView>
     </>
 }
 
